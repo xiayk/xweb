@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: xweb
+  rofiles:
+    active: dev
+
+  #  datasource本地配置
+  datasource:
+    url: jdbc:mysql://xiayk.com:3306/db_xweb?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: xweb
+    password: xweb.mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 1800000
+server:
+  port: 8071
+
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml

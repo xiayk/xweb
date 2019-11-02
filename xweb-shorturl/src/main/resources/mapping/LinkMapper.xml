@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiayk.xwebshorturl.dao.LinkMapper">
+  <resultMap id="BaseResultMap" type="com.xiayk.xwebshorturl.model.po.Link">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="long_url" jdbcType="VARCHAR" property="longUrl" />
+    <result column="short_url" jdbcType="VARCHAR" property="shortUrl" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, long_url, short_url, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_link
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findLongUrlByShortUrl" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    long_url
+    from t_link
+    where short_url = #{shortUrl}
+  </select>
+  <select id="findShortUrlByLongUrl" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    short_url
+    from t_link
+    where long_url = #{longUrl}
+  </select>
+  <insert id="insert" parameterType="com.xiayk.xwebshorturl.model.po.Link">
+    insert into t_link (id, long_url, short_url, 
+      create_date)
+    values (#{id,jdbcType=INTEGER}, #{longUrl,jdbcType=VARCHAR}, #{shortUrl,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR})
+  </insert>
+</mapper>

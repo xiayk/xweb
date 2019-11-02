@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiayk.api.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.xiayk.api.common.po.Order">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_amount" jdbcType="VARCHAR" property="orderAmount" />
+    <result column="order_body" jdbcType="VARCHAR" property="orderBody" />
+    <result column="order_user" jdbcType="VARCHAR" property="orderUser" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="order_create_date" jdbcType="VARCHAR" property="orderCreateDate" />
+    <result column="order_send_date" jdbcType="VARCHAR" property="orderSendDate" />
+    <result column="order_other" jdbcType="VARCHAR" property="orderOther" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, order_amount, order_body, order_user, order_state, order_type, order_create_date, 
+    order_send_date, order_other
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getOrderByKey" parameterType="com.xiayk.api.common.request.LimitOrderParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_order
+    <where>
+      <if test="orderId != null">
+        and order_id = #{orderId}
+      </if>
+      <if test="date1 != null and date2 != null">
+        and order_create_date between #{date1} and #{date2}
+      </if>
+      <if test="orderState != null">
+        and order_state = #{orderState}
+      </if>
+      <if test="orderType != null">
+        and order_type = #{orderType}
+      </if>
+      <if test="username != null">
+        and order_user = #{username}
+      </if>
+    </where>
+  </select>
+
+  <select id="getOrderByKeyCount" parameterType="com.xiayk.api.common.request.LimitOrderParams" resultType="java.lang.Integer">
+    select
+    count(*)
+    from t_order
+    <where>
+      <if test="orderId != null">
+        and order_id = #{orderId}
+      </if>
+      <if test="date1 != null and date2 != null">
+        and order_create_date between #{date1} and #{date2}
+      </if>
+      <if test="orderState != null">
+        and order_state = #{orderState}
+      </if>
+      <if test="orderType != null">
+        and order_type = #{orderType}
+      </if>
+      <if test="username != null">
+        and order_user = #{username}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xiayk.api.common.po.Order">
+    insert into t_order (order_id, order_amount, order_body, 
+      order_user, order_state, order_type, 
+      order_create_date, order_send_date, order_other
+      )
+    values (#{orderId,jdbcType=VARCHAR}, #{orderAmount,jdbcType=VARCHAR}, #{orderBody,jdbcType=VARCHAR}, 
+      #{orderUser,jdbcType=VARCHAR}, #{orderState,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, 
+      #{orderCreateDate,jdbcType=VARCHAR}, #{orderSendDate,jdbcType=VARCHAR}, #{orderOther,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiayk.api.common.po.Order">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="orderBody != null">
+        order_body,
+      </if>
+      <if test="orderUser != null">
+        order_user,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="orderCreateDate != null">
+        order_create_date,
+      </if>
+      <if test="orderSendDate != null">
+        order_send_date,
+      </if>
+      <if test="orderOther != null">
+        order_other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBody != null">
+        #{orderBody,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUser != null">
+        #{orderUser,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="orderCreateDate != null">
+        #{orderCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSendDate != null">
+        #{orderSendDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOther != null">
+        #{orderOther,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiayk.api.common.po.Order">
+    update t_order
+    <set>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBody != null">
+        order_body = #{orderBody,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUser != null">
+        order_user = #{orderUser,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="orderCreateDate != null">
+        order_create_date = #{orderCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSendDate != null">
+        order_send_date = #{orderSendDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOther != null">
+        order_other = #{orderOther,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

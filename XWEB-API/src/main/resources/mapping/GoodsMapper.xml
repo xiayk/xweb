@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiayk.api.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.xiayk.api.common.po.Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="goods_sum" jdbcType="INTEGER" property="goodsSum" />
+    <result column="goods_other" jdbcType="VARCHAR" property="goodsOther" />
+    <result column="goods_create_date" jdbcType="VARCHAR" property="goodsCreateDate" />
+    <result column="goods_update_date" jdbcType="VARCHAR" property="goodsUpdateDate" />
+    <result column="goods_icon" jdbcType="VARCHAR" property="goodsIcon" />
+    <result column="goods_state" jdbcType="INTEGER" property="goodsState" />
+    <result column="goods_show_nav" jdbcType="INTEGER" property="goodsShowNav" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goods_id, goods_name, goods_price, goods_sum, goods_other, goods_create_date, 
+    goods_update_date, goods_icon, goods_state, goods_show_nav
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.xiayk.api.common.request.LimitGoodsParams" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    <where>
+      <if test="goodsId != null and goodsId != ''">
+        goods_id = #{goodsId}
+      </if>
+      <if test="date1 != null and date2 != null">
+        and goods_create_date between #{date1} and #{date2}
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        and goods_name like #{goodsName}
+      </if>
+      and goods_state = 1
+      limit #{pageNum}, #{pageSize}
+    </where>
+  </select>
+  <select id="selectByPrimaryKeyCount" parameterType="com.xiayk.api.common.request.LimitGoodsParams" resultType="java.lang.Integer">
+    select
+    count(*)
+    from t_goods
+    <where>
+      <if test="goodsId != null and goodsId != ''">
+        goods_id = #{goodsId}
+      </if>
+      <if test="date1 != null and date2 != null">
+        and goods_create_date between #{date1} and #{date2}
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        and goods_name like #{goodsName}
+      </if>
+      and goods_state = 1
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.xiayk.api.common.po.Goods">
+    delete from t_goods
+    where id = #{id,jdbcType=INTEGER}
+      and goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xiayk.api.common.po.Goods">
+    insert into t_goods (id, goods_id, goods_name, 
+      goods_price, goods_sum, goods_other, 
+      goods_create_date, goods_update_date, goods_icon, 
+      goods_state, goods_show_nav)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=VARCHAR}, #{goodsSum,jdbcType=INTEGER}, #{goodsOther,jdbcType=VARCHAR}, 
+      #{goodsCreateDate,jdbcType=VARCHAR}, #{goodsUpdateDate,jdbcType=VARCHAR}, #{goodsIcon,jdbcType=VARCHAR}, 
+      #{goodsState,jdbcType=INTEGER}, #{goodsShowNav,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiayk.api.common.po.Goods">
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsSum != null">
+        goods_sum,
+      </if>
+      <if test="goodsOther != null">
+        goods_other,
+      </if>
+      <if test="goodsCreateDate != null">
+        goods_create_date,
+      </if>
+      <if test="goodsUpdateDate != null">
+        goods_update_date,
+      </if>
+      <if test="goodsIcon != null">
+        goods_icon,
+      </if>
+      <if test="goodsState != null">
+        goods_state,
+      </if>
+      <if test="goodsShowNav != null">
+        goods_show_nav,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        #{goodsSum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOther != null">
+        #{goodsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCreateDate != null">
+        #{goodsCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUpdateDate != null">
+        #{goodsUpdateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIcon != null">
+        #{goodsIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null">
+        #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsShowNav != null">
+        #{goodsShowNav,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiayk.api.common.po.Goods">
+    update t_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        goods_sum = #{goodsSum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOther != null">
+        goods_other = #{goodsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCreateDate != null">
+        goods_create_date = #{goodsCreateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUpdateDate != null">
+        goods_update_date = #{goodsUpdateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIcon != null">
+        goods_icon = #{goodsIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null">
+        goods_state = #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsShowNav != null">
+        goods_show_nav = #{goodsShowNav,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiayk.api.common.po.Goods">
+    update t_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      goods_sum = #{goodsSum,jdbcType=INTEGER},
+      goods_other = #{goodsOther,jdbcType=VARCHAR},
+      goods_create_date = #{goodsCreateDate,jdbcType=VARCHAR},
+      goods_update_date = #{goodsUpdateDate,jdbcType=VARCHAR},
+      goods_icon = #{goodsIcon,jdbcType=VARCHAR},
+      goods_state = #{goodsState,jdbcType=INTEGER},
+      goods_show_nav = #{goodsShowNav,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+      and goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: xweb-api
+  rofiles:
+    active: dev
+
+  #  datasource本地配置
+  datasource:
+    url: jdbc:mysql://xiayk.com:3306/db_api?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: xweb
+    password: xweb.mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 1800000
+
+  #  redis本地配置 请自行配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  mail:
+    host: smtp.exmail.qq.com
+    username: super@xiayk.cn
+    password: h6AztJm4kNMsH4xe
+    default-encoding: UTF-8
+    protocol: smtp
+    port: 465
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+mail:
+  fromMail:
+    addr: super@xiayk.cn
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-header-size: 8192
+  port: 8088
+
+wx:
+  AppId: wx45c99973f70022ec
+  AppSecret: cc68e67b17d2becafd1669a6333a1012
+
+
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
