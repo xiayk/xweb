@@ -1,7 +1,7 @@
-## 短链 页面暂未完成
+## 转短链 页面暂未完成
 #### URL: [http://t.xiayk.com](http://t.xiayk.com)
 #### API: 
-##### 转短链 http://t.xiayk.com/toShortUrl
+##### 转短链 http://t.xiayk.com/toShortUrl POST/GET
 - request Params 
 
 `{
@@ -13,7 +13,7 @@
 [`http://t.xiayk.com/3M73qu`](http://t.xiayk.com/3M73qu)
 
 
-##### 转长链 http://t.xiayk.com/toLongUrl
+##### 转长链 http://t.xiayk.com/toLongUrl POST/GET
 - request Params
 
 `{
@@ -25,8 +25,6 @@
 `
 http://baidu.com/
 `
-
-##### http://t.xiayk.com/{code}
 
 ### 已知问题
 - http://t.xiayk.com/{any} 会出错
